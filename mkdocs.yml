@@ -1,0 +1,62 @@
+site_name: ReactiveGraph
+site_description: Reactive runtime for explainable, transactional agent workflows
+site_url: https://reactivegraph.dev
+repo_url: https://github.com/from000/reactive-graph
+repo_name: from000/reactive-graph
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Why Reactive: why-reactive.md
+  - Quickstart: quickstart.md
+  - Guides:
+      - Migration: migration-guide.md
+      - Agent cookbook: agent-cookbook.md
+      - Example gallery: example-gallery.md
+      - Production deployment: production-deployment.md
+  - API reference: api-reference.md
+  - Tutorials: tutorials/README.md
+  - Specs:
+      - Native API: spec/native-api.md
+      - State & transactions: spec/state-and-transactions.md
+      - Streams & interrupts: spec/streams-and-interrupts.md
+      - Durable execution: spec/durable-execution.md
+      - RGP/1: spec/rgp-1.md
+      - Remote API: spec/remote-api.md
+      - Observability & security: spec/observability-and-security.md
+  - Benchmarks: benchmarks.md
+  - Competitive proof: competitive-proof.md
+  - Commercial readiness: commercial-readiness.md
+  - FAQ: faq.md
+  - Roadmap: plans/roadmap.md
+  - Completion audit: plan-completion-audit.md
+  - Local proof bundle: proof/README.md
+
+exclude_docs: |
+  /README.md
+
+not_in_nav: |
+  plans/*.md
+  research/*.md
+  toolchain.md
+  reactivechain-langchain-comparison.md
+  spec/d-objectives.md
+  spec/langgraph-comparison.md
+  spec/native-api-competitive.md
+  tutorials/0*.md
+  tutorials/reactivechain-*.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - toc:
+      permalink: true

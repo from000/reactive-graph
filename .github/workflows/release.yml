@@ -1,0 +1,61 @@
+name: release
+
+# Publish on version tags (v*). Requires repository secrets:
+#   NPM_TOKEN  — npm access token with publish rights to @reactivegraph/* (needs
+#                the @reactivegraph org to exist and packages to be scoped there)
+#   PYPI_TOKEN — PyPI API token for the reactivegraph project
+# Until those secrets exist, this workflow fails fast on the publish step
+# (build + tests still run and validate the tag).
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  npm:
+    name: Publish @reactivegraph/* to npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org/
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r build
+      - name: "Publish (dependency order: protocol -> devtools-protocol -> driver -> sdk-js)"
+        run: |
+          for pkg in protocol devtools-protocol driver sdk-js; do
+            pnpm --filter @reactivegraph/$pkg publish --no-git-checks --access public
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  pypi:
+    name: Publish ReactiveGraph Python packages to PyPI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Test core package
+        run: |
+          uv sync --directory python/reactivegraph --extra test
+          uv run --directory python/reactivegraph python -m pytest -q
+      - name: Build all sdists + wheels
+        run: |
+          uv build --directory python/reactivegraph --out-dir dist/reactivegraph
+          uv build --directory python/reactivechain --out-dir dist/reactivechain
+          uv build --directory python/reactivegraph_sdk --out-dir dist/reactivegraph-sdk
+          uv build --directory python/reactivegraph_cli --out-dir dist/reactivegraph-cli
+      - name: Publish to PyPI
+        run: uvx twine upload --non-interactive dist/*/*
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}

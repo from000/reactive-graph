@@ -1,0 +1,49 @@
+[project]
+name = "reactivegraph"
+version = "0.1.0"
+description = "Reactive execution engine (Python binding to the Node Driver over RGP/1)"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+readme = "README.md"
+dependencies = [
+    "msgpack>=1.0",
+    # Message models are pydantic v2 models so they are drop-in for the
+    # langchain-core message surface hosts consume.
+    "pydantic>=2.7",
+    # TypedDict/TypeVar defaults and Required/NotRequired markers are part of
+    # the middleware and message contracts; stdlib typing lacks them on 3.10.
+    "typing-extensions>=4.12",
+    # Interrupt ids are xxh3-128 digests of the node namespace; the exact
+    # algorithm is an interoperability contract with LangGraph checkpoints.
+    "xxhash>=3.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/from000/reactive-graph"
+Repository = "https://github.com/from000/reactive-graph"
+Issues = "https://github.com/from000/reactive-graph/issues"
+Documentation = "https://github.com/from000/reactive-graph/tree/main/docs"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+]
+postgres = [
+    "psycopg[binary]>=3.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "N"]
+# N818：Interrupt/GraphInterrupt 刻意不带 Error 后缀（对齐 langgraph
+# GraphInterrupt 命名，用户按约定抛出触发流式中断）
+ignore = ["N818"]

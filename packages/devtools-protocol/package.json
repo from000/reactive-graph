@@ -1,0 +1,36 @@
+{
+  "name": "@reactivegraph/devtools-protocol",
+  "version": "0.1.0",
+  "files": [
+    "LICENSE",
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "description": "ReactiveGraph devtools protocol: stable causal-trace event schema (Task 12)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/from000/reactive-graph.git",
+    "directory": "packages/devtools-protocol"
+  },
+  "homepage": "https://github.com/from000/reactive-graph#readme",
+  "bugs": {
+    "url": "https://github.com/from000/reactive-graph/issues"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^4.1.11"
+  }
+}

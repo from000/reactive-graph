@@ -1,0 +1,47 @@
+{
+  "name": "@reactivegraph/driver",
+  "version": "0.1.0",
+  "files": [
+    "LICENSE",
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "description": "ReactiveGraph Driver: transactional reactive state, scheduler, durability",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/from000/reactive-graph.git",
+    "directory": "packages/driver"
+  },
+  "homepage": "https://github.com/from000/reactive-graph#readme",
+  "bugs": {
+    "url": "https://github.com/from000/reactive-graph/issues"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "reactivegraph-driver": "dist/main.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src test"
+  },
+  "dependencies": {
+    "@reactivegraph/devtools-protocol": "workspace:*",
+    "@reactivegraph/protocol": "workspace:*",
+    "@vue/reactivity": "^3.4.0",
+    "ioredis": "^6.0.0",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.23.1",
+    "typescript": "^5.5.0",
+    "vitest": "^4.1.11"
+  }
+}
