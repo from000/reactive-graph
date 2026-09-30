@@ -52,7 +52,7 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm -r build
       - uses: astral-sh/setup-uv@v5
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - name: Lockfile check
@@ -88,7 +88,7 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm -r build
       - uses: astral-sh/setup-uv@v5
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install test deps
@@ -125,7 +125,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
         if: ${{ !matrix.node-only }}
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         if: ${{ !matrix.node-only }}
         with:
           python-version: ${{ matrix.python-version }}
@@ -195,7 +195,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - run: pipx install mkdocs
