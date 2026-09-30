@@ -1,0 +1,13 @@
+$ vitest run
+
+ RUN  v2.1.9 <repo-root>/packages/protocol
+
+ ✓ test/version.test.ts (2 tests) 3ms
+ ✓ test/messages.test.ts (1 test) 7ms
+ ✓ test/framing.test.ts (14 tests) 16ms
+
+ Test Files  3 passed (3)
+      Tests  17 passed (17)
+   Start at  15:57:26
+   Duration  691ms (transform 197ms, setup 0ms, collect 273ms, tests 27ms, environment 1ms, prepare 453ms)
+

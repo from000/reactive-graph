@@ -1,0 +1,41 @@
+# ReactiveGraph root project + uv workspace.
+[project]
+name = "reactivegraph-workspace"
+version = "0.1.0"
+description = "Reactive execution engine"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"  # SPDX expression (PEP 639)
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = [
+    "python/reactivegraph",
+    "python/reactivegraph_sdk",
+    "python/reactivegraph_cli",
+    "python/reactivechain",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "N"]
+
+[tool.mypy]
+python_version = "3.10"
+# 上游 langgraph 未使用 --strict；务实基线：忽略第三方 stub 缺失，
+# 但仍检查真实类型错误（arg-type/attr-defined/return 等）。
+strict = false
+ignore_missing_imports = true
+warn_unused_ignores = true
+check_untyped_defs = true
+disallow_untyped_defs = false
+
+# Tests intentionally exercise runtime compatibility with dynamically typed
+# host objects and invalid/foreign payloads. Type-check production modules at
+# the package gate; pytest remains the correctness gate for test code.

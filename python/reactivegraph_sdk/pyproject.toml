@@ -1,0 +1,31 @@
+[project]
+name = "reactivegraph-sdk"
+version = "0.1.0"
+description = "ReactiveGraph Python SDK (remote client over RGP/1)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+dependencies = [
+    "reactivegraph>=0.1.0",
+    "typing-extensions>=4.7; python_version < '3.11'",
+]
+
+[tool.uv.sources]
+reactivegraph = { workspace = true }
+
+[project.urls]
+Homepage = "https://github.com/from000/reactive-graph"
+Repository = "https://github.com/from000/reactive-graph"
+Issues = "https://github.com/from000/reactive-graph/issues"
+Documentation = "https://github.com/from000/reactive-graph/tree/main/docs"
+
+[project.optional-dependencies]
+test = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+[tool.ruff]
+line-length = 140
+target-version = "py310"
