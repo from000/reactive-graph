@@ -1,0 +1,91 @@
+[project]
+name = "reactivegraph"
+version = "0.1.0"
+description = "Reactive execution engine (Python binding to the Node Driver over RGP/1)"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+readme = "README.md"
+authors = [
+    { name = "ReactiveGraph contributors" },
+]
+keywords = ["reactive", "reactive-graph", "langgraph", "agent", "workflow"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "msgpack>=1.0",
+    # Message models are pydantic v2 models so they are drop-in for the
+    # langchain-core message surface hosts consume.
+    "pydantic>=2.7",
+    # TypedDict/TypeVar defaults and Required/NotRequired markers are part of
+    # the middleware and message contracts; stdlib typing lacks them on 3.10.
+    "typing-extensions>=4.12",
+    # Interrupt ids are xxh3-128 digests of the node namespace; the exact
+    # algorithm is an interoperability contract with LangGraph checkpoints.
+    "xxhash>=3.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/from000/reactive-graph"
+Repository = "https://github.com/from000/reactive-graph"
+Issues = "https://github.com/from000/reactive-graph/issues"
+Documentation = "https://github.com/from000/reactive-graph/tree/main/docs"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+]
+# 兼容性对照测试（tests/ 中的 importorskip）需要真实上游实现在场，
+# 否则 49 处契约断言会被静默跳过。pins 与 differential benchmark 一致。
+compat = [
+    "langgraph==1.2.11",
+    "langchain==1.2.11",
+    "langchain-core>=1.6,<2",
+    "langgraph-checkpoint-sqlite>=3.0",
+    "aiosqlite>=0.20",
+]
+postgres = [
+    "psycopg[binary]>=3.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "N"]
+# N818：Interrupt/GraphInterrupt 刻意不带 Error 后缀（对齐 langgraph
+# GraphInterrupt 命名，用户按约定抛出触发流式中断）
+ignore = ["N818"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.interrogate]
+# Docstring coverage gate. Nested functions, overload stubs, __init__ and
+# magic methods are excluded: they are implementation details (decorator
+# closures, dispatch tables), not the API surface users read.
+ignore-nested-functions = true
+ignore-overloaded-functions = true
+ignore-init-method = true
+ignore-magic = true
+fail-under = 80
+
+# PEP 561: ship the ``py.typed`` marker so downstream type checkers use the
+# inline annotations instead of reporting missing library stubs.
+[tool.setuptools.package-data]
+reactivegraph = ["py.typed"]

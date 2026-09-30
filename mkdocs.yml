@@ -1,0 +1,74 @@
+site_name: ReactiveGraph
+site_description: Reactive runtime for explainable, transactional agent workflows
+site_url: https://from000.github.io/reactive-graph/
+repo_url: https://github.com/from000/reactive-graph
+repo_name: from000/reactive-graph
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Why Reactive: why-reactive.md
+  - Quickstart: quickstart.md
+  - Guides:
+      - Migration: migration-guide.md
+      - Agent cookbook: agent-cookbook.md
+      - Example gallery: example-gallery.md
+      - Production deployment: production-deployment.md
+  - API reference: api-reference.md
+  - Tutorials:
+      - Overview: tutorials/README.md
+      - 01 · Why reactive: tutorials/01-why-reactive.md
+      - 02 · First graph: tutorials/02-first-graph.md
+      - 03 · computed & scope: tutorials/03-computed-scope.md
+      - 04 · Streams & resume: tutorials/04-streams-resume.md
+      - 05 · Durability: tutorials/05-durability.md
+      - 06 · 1000-node app: tutorials/06-1000-nodes.md
+      - 07 · Token streaming: tutorials/07-streaming-tokens.md
+      - 08 · Real-LLM streaming: tutorials/08-real-llm-streaming.md
+      - ReactiveChain 01 · Pipeline: tutorials/reactivechain-01-pipeline.md
+      - ReactiveChain 02 · RAG: tutorials/reactivechain-02-rag.md
+      - ReactiveChain 03 · Tool agent: tutorials/reactivechain-03-tool-agent.md
+  - Specs:
+      - Native API: spec/native-api.md
+      - State & transactions: spec/state-and-transactions.md
+      - Streams & interrupts: spec/streams-and-interrupts.md
+      - Durable execution: spec/durable-execution.md
+      - RGP/1: spec/rgp-1.md
+      - Remote API: spec/remote-api.md
+      - Observability & security: spec/observability-and-security.md
+  - Benchmarks: benchmarks.md
+  - Competitive proof: competitive-proof.md
+  - Commercial readiness: commercial-readiness.md
+  - FAQ: faq.md
+  - Roadmap: plans/roadmap.md
+  - Completion audit: plan-completion-audit.md
+  - Local proof bundle: proof/README.md
+
+exclude_docs: |
+  /README.md
+
+not_in_nav: |
+  plans/*.md
+  research/*.md
+  toolchain.md
+  reactivechain-langchain-comparison.md
+  spec/d-objectives.md
+  spec/langgraph-comparison.md
+  spec/native-api-competitive.md
+  tutorials/0*.md
+  tutorials/reactivechain-*.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - toc:
+      permalink: true

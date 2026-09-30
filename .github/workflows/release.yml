@@ -1,0 +1,117 @@
+name: release
+
+# Publish on version tags (v*). Requires repository secrets:
+#   NPM_TOKEN  — npm access token with publish rights to @reactivegraph/*
+#                (the @reactivegraph org must exist and the packages must be
+#                scoped there)
+#   PYPI_TOKEN — PyPI API token covering reactivegraph, reactivechain,
+#                reactivegraph-sdk and reactivegraph-cli
+#
+# Until both secrets exist the build + verification steps still run, and the
+# registry publish steps are skipped with a notice instead of failing the tag.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    name: Check registry credentials
+    runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.check.outputs.publish }}
+    steps:
+      - id: check
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          if [ -n "$NPM_TOKEN" ] && [ -n "$PYPI_TOKEN" ]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "Both registry tokens are configured; publish steps will run."
+          else
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            missing=""
+            [ -z "$NPM_TOKEN" ] && missing="$missing NPM_TOKEN"
+            [ -z "$PYPI_TOKEN" ] && missing="$missing PYPI_TOKEN"
+            echo "::notice title=Registry publish skipped::Missing$missing; configure them in Settings -> Secrets and variables -> Actions to enable publishing."
+          fi
+
+  npm:
+    name: Build and publish @reactivegraph/* to npm
+    needs: preflight
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r build
+      - name: Verify publishable tarballs
+        run: |
+          for pkg in protocol devtools-protocol driver sdk-js; do
+            pnpm --filter @reactivegraph/$pkg publish --dry-run --no-git-checks
+          done
+      - name: "Publish (dependency order: protocol -> devtools-protocol -> driver -> sdk-js)"
+        if: needs.preflight.outputs.publish == 'true'
+        run: |
+          for pkg in protocol devtools-protocol driver sdk-js; do
+            pnpm --filter @reactivegraph/$pkg publish --no-git-checks --access public
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  pypi:
+    name: Build and publish ReactiveGraph Python packages to PyPI
+    needs: preflight
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Build workspace (Driver-backed Python tests need dist/main.js)
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm -r build
+      - uses: astral-sh/setup-uv@v5
+      - name: Test core package
+        run: |
+          uv sync --directory python/reactivegraph --extra test --extra compat
+          uv run --directory python/reactivegraph python -m pytest -q
+
+      - name: Build all sdists + wheels
+        # --out-dir is resolved relative to --directory (the package dir), so a
+        # relative "dist/..." would land under python/<pkg>/dist. Use absolute.
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/dist"
+          uv build --directory python/reactivegraph --out-dir "$GITHUB_WORKSPACE/dist/reactivegraph"
+          uv build --directory python/reactivechain --out-dir "$GITHUB_WORKSPACE/dist/reactivechain"
+          uv build --directory python/reactivegraph_sdk --out-dir "$GITHUB_WORKSPACE/dist/reactivegraph-sdk"
+          uv build --directory python/reactivegraph_cli --out-dir "$GITHUB_WORKSPACE/dist/reactivegraph-cli"
+      - name: List artifacts
+        run: find dist -type f \( -name '*.whl' -o -name '*.tar.gz' \) | sort
+      - name: Check package metadata
+        # `uv build` also writes a .gitignore per out-dir, so select only real
+        # distribution files; `twine check` rejects anything else.
+        run: |
+          find dist -type f \( -name '*.whl' -o -name '*.tar.gz' \) -print0 | sort -z | xargs -0 uvx twine check
+      - name: Publish to PyPI
+        if: needs.preflight.outputs.publish == 'true'
+        run: |
+          find dist -type f \( -name '*.whl' -o -name '*.tar.gz' \) -print0 | sort -z | xargs -0 uvx twine upload --non-interactive
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}

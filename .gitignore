@@ -1,0 +1,40 @@
+node_modules/
+.pytest_cache/
+__pycache__/
+*.pyc
+*.egg-info/
+.coverage
+.venv/
+dist/
+build/
+coverage/
+.idea/
+.vscode/
+.DS_Store
+.learnings/
+.reasonix/
+.venv/
+.worktrees/
+reasonix.toml
+benchmarks/differential/.results/
+benchmarks/deerflow/.results/
+# playwright 技能 artifacts（output/playwright/<label>/ 约定目录，不进仓库）
+output/
+
+# local verification logs and generated docs output
+.verification/
+examples/deerflow/.verification/
+site/
+.scratch/
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+credentials.json

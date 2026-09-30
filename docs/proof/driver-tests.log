@@ -1,0 +1,35 @@
+$ vitest run
+
+ RUN  v2.1.9 <repo-root>/packages/driver
+
+ ✓ test/state/transaction.test.ts (14 tests) 19ms
+ ✓ test/durability/recovery.test.ts (10 tests) 39ms
+ ✓ test/gateway/tcp.test.ts (5 tests) 87ms
+ ✓ test/controls.test.ts (13 tests) 15ms
+ ✓ test/gateway.test.ts (9 tests) 37ms
+ ✓ test/scheduler/scheduler.test.ts (35 tests) 404ms
+ ✓ test/storage/storage.test.ts (27 tests) 534ms
+ ✓ test/gateway/tenant.test.ts (2 tests) 61ms
+ ✓ test/storage/postgres.test.ts (5 tests) 190ms
+ ✓ test/streams.test.ts (8 tests) 41ms
+ ✓ test/gateway/stdio.test.ts (3 tests) 25ms
+ ✓ test/time-travel.test.ts (2 tests) 68ms
+ ✓ test/storage/checkpoint-conflict.test.ts (8 tests) 81ms
+ ✓ test/session.test.ts (5 tests) 61ms
+ ✓ test/scheduler/recursion-limit.test.ts (3 tests) 32ms
+ ✓ test/storage/vector-store.test.ts (7 tests) 62ms
+ ✓ test/scheduler/streaming-task.test.ts (2 tests) 33ms
+..+..+......+...+..........+..+.........+.+..+.+.....+..........+......+...+..+...+......+......+++++++++++++++++++++++++++++++++++++++*..........+..+.+...........+...+...+.......+.....+.+.....+.........+.+.....+.+..............+....+++++++++++++++++++++++++++++++++++++++*...+...........+...+.+......+.....+....+...+..+..........+......+........+....+...........+....+..+.............+.....+.+...........+...+.+......+...++++++
+......+.+.........+..+...+++++++++++++++++++++++++++++++++++++++*..........+.+......+...+.......................+..........+...+......+.....+...+.+..+...+.+...........+.........+...............+...+...+....+...+..+...+...+...+.+......+..+..........+.....+.+.....+......+.+++++++++++++++++++++++++++++++++++++++*...+......+....+...+..+............+......+...+..........+..+.........+...+......+.+...+............+...+..+....+..............+.............+.....+....+.....+..................+.+..+.........+...+.+............+........+.+.....+.........+.+......+..+...+...+......+.+..+..........+...+.....+..........+...+..............+.......+...+......+...........+.+...+......+.........+......+...+...............+........+..........+............+......+......+......+.........+.....................+..+......+....+...+..+......+...............+.......+...+...........+......+...+.........+............+.+........+.+........+...+...+.+..................+........+......................+.....+.+.....................+........+.+..............+.+......+.....+.+..+...........................+.+...+..+.........+...+...+...++++++
+-----
+ ✓ test/storage/redis.test.ts (3 tests) 27ms
+ ✓ test/gateway/tls.test.ts (1 test) 177ms
+ ✓ test/dot-export.test.ts (2 tests) 7ms
+ ✓ test/runtime.test.ts (28 tests) 3122ms
+   ✓ scale and stability smoke > builds and executes a 10000-node graph within the test budget 2830ms
+
+ Test Files  21 passed (21)
+      Tests  192 passed (192)
+   Start at  15:57:28
+   Duration  4.30s (transform 1.67s, setup 0ms, collect 7.22s, tests 5.12s, environment 12ms, prepare 3.33s)
+

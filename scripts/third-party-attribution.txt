@@ -1,0 +1,23 @@
+# Files that adapt third-party source code.
+#
+# Format: <path> <TAB> <upstream project> <TAB> <short description>
+#
+# Every file listed here MUST contain a pointer to THIRD_PARTY_NOTICES.md,
+# which carries the upstream MIT copyright notices and reference versions.
+# Add an entry when porting upstream code; see scripts/audit-upstream-similarity.py
+# for the tool used to find candidates.
+#
+python/reactivegraph/reactivegraph/tool_node.py	langgraph-prebuilt	Prebuilt ToolNode: injection, parallel dispatch, error policy
+python/reactivegraph/reactivegraph/tools.py	langchain-core	@tool / StructuredTool contracts and schema conversion
+python/reactivegraph/reactivegraph/messages.py	langchain-core	Message models, content merging, partial-JSON parsing
+python/reactivegraph/reactivegraph/message_utils.py	langchain-core	Message trimming and token accounting
+python/reactivegraph/reactivegraph/middleware.py	langgraph-prebuilt + langchain	ToolCallRequest / ToolInvocationError / AgentMiddleware contracts
+python/reactivegraph/reactivegraph/channels/__init__.py	langgraph	Channel resolution, BinaryOperatorAggregate, DeltaChannel
+python/reactivegraph/reactivegraph/checkpoint.py	langgraph-checkpoint	Checkpoint contract and UUIDv6 generation
+python/reactivegraph/reactivegraph/message_state.py	langgraph	add_messages reducer semantics and EphemeralValue marker
+python/reactivegraph/reactivegraph/types.py	langgraph	Command / Send contracts and update normalisation
+python/reactivegraph/reactivegraph/runtime.py	langgraph	Run-scoped runtime and config helpers
+python/reactivegraph/reactivegraph/store.py	langgraph-checkpoint	Store base contracts and comparison helpers
+python/reactivegraph/reactivegraph/warnings.py	langgraph	Deprecation warning category rendering
+python/reactivegraph/reactivegraph/summarization.py	langchain	SummarizationMiddleware: trigger handling, cut-off selection, summary prompts
+python/reactivegraph/reactivegraph/todo.py	langchain	TodoListMiddleware: todo tool and prompt
