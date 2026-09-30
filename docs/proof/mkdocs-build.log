@@ -1,0 +1,7 @@
+INFO    -  Cleaning site directory
+INFO    -  Building documentation to directory: /tmp/proof-site
+INFO    -  A reference to 'tutorials/README.md' is included in the 'nav' configuration, but this file is excluded from the built site.
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+  - plan-completion-audit.md
+INFO    -  Doc file 'example-gallery.md' contains an unrecognized relative link '../examples/deerflow', it was left as is.
+INFO    -  Documentation built in 1.38 seconds

@@ -1,0 +1,49 @@
+{
+  "name": "@reactivegraph/protocol",
+  "version": "0.1.0",
+  "files": [
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "README.md",
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "description": "RGP/1 wire protocol: version, framing, and canonical MessagePack codec for ReactiveGraph",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/from000/reactive-graph.git",
+    "directory": "packages/protocol"
+  },
+  "homepage": "https://github.com/from000/reactive-graph#readme",
+  "bugs": {
+    "url": "https://github.com/from000/reactive-graph/issues"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src test"
+  },
+  "dependencies": {
+    "@msgpack/msgpack": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^4.1.11"
+  },
+  "keywords": [
+    "reactive",
+    "reactive-graph",
+    "protocol",
+    "rgp",
+    "messagepack",
+    "wire"
+  ]
+}

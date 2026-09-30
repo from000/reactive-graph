@@ -1,0 +1,11 @@
+Scope: 5 of 6 workspace projects
+packages/devtools-protocol build$ tsc -p tsconfig.json
+packages/testkit build$ tsc -p tsconfig.json
+packages/protocol build$ tsc -p tsconfig.json
+packages/testkit build: Done
+packages/devtools-protocol build: Done
+packages/protocol build: Done
+packages/driver build$ tsc -p tsconfig.json
+packages/driver build: Done
+packages/sdk-js build$ tsc -p tsconfig.json
+packages/sdk-js build: Done

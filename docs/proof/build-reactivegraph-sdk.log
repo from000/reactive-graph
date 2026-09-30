@@ -1,0 +1,78 @@
+Building source distribution...
+running egg_info
+writing reactivegraph_sdk.egg-info/PKG-INFO
+writing dependency_links to reactivegraph_sdk.egg-info/dependency_links.txt
+writing requirements to reactivegraph_sdk.egg-info/requires.txt
+writing top-level names to reactivegraph_sdk.egg-info/top_level.txt
+reading manifest file 'reactivegraph_sdk.egg-info/SOURCES.txt'
+writing manifest file 'reactivegraph_sdk.egg-info/SOURCES.txt'
+running sdist
+running egg_info
+writing reactivegraph_sdk.egg-info/PKG-INFO
+writing dependency_links to reactivegraph_sdk.egg-info/dependency_links.txt
+writing requirements to reactivegraph_sdk.egg-info/requires.txt
+writing top-level names to reactivegraph_sdk.egg-info/top_level.txt
+reading manifest file 'reactivegraph_sdk.egg-info/SOURCES.txt'
+writing manifest file 'reactivegraph_sdk.egg-info/SOURCES.txt'
+running check
+creating reactivegraph_sdk-0.1.0
+creating reactivegraph_sdk-0.1.0/reactivegraph_sdk
+creating reactivegraph_sdk-0.1.0/reactivegraph_sdk.egg-info
+creating reactivegraph_sdk-0.1.0/tests
+copying files to reactivegraph_sdk-0.1.0...
+copying README.md -> reactivegraph_sdk-0.1.0
+copying pyproject.toml -> reactivegraph_sdk-0.1.0
+copying reactivegraph_sdk/__init__.py -> reactivegraph_sdk-0.1.0/reactivegraph_sdk
+copying reactivegraph_sdk/client.py -> reactivegraph_sdk-0.1.0/reactivegraph_sdk
+copying reactivegraph_sdk.egg-info/PKG-INFO -> reactivegraph_sdk-0.1.0/reactivegraph_sdk.egg-info
+copying reactivegraph_sdk.egg-info/SOURCES.txt -> reactivegraph_sdk-0.1.0/reactivegraph_sdk.egg-info
+copying reactivegraph_sdk.egg-info/dependency_links.txt -> reactivegraph_sdk-0.1.0/reactivegraph_sdk.egg-info
+copying reactivegraph_sdk.egg-info/requires.txt -> reactivegraph_sdk-0.1.0/reactivegraph_sdk.egg-info
+copying reactivegraph_sdk.egg-info/top_level.txt -> reactivegraph_sdk-0.1.0/reactivegraph_sdk.egg-info
+copying tests/test_auth.py -> reactivegraph_sdk-0.1.0/tests
+copying tests/test_client.py -> reactivegraph_sdk-0.1.0/tests
+Writing reactivegraph_sdk-0.1.0/setup.cfg
+Creating tar archive
+removing 'reactivegraph_sdk-0.1.0' (and everything under it)
+Building wheel from source distribution...
+running egg_info
+writing reactivegraph_sdk.egg-info/PKG-INFO
+writing dependency_links to reactivegraph_sdk.egg-info/dependency_links.txt
+writing requirements to reactivegraph_sdk.egg-info/requires.txt
+writing top-level names to reactivegraph_sdk.egg-info/top_level.txt
+reading manifest file 'reactivegraph_sdk.egg-info/SOURCES.txt'
+writing manifest file 'reactivegraph_sdk.egg-info/SOURCES.txt'
+running bdist_wheel
+running build
+running build_py
+creating build/lib/reactivegraph_sdk
+copying reactivegraph_sdk/client.py -> build/lib/reactivegraph_sdk
+copying reactivegraph_sdk/__init__.py -> build/lib/reactivegraph_sdk
+running egg_info
+writing reactivegraph_sdk.egg-info/PKG-INFO
+writing dependency_links to reactivegraph_sdk.egg-info/dependency_links.txt
+writing requirements to reactivegraph_sdk.egg-info/requires.txt
+writing top-level names to reactivegraph_sdk.egg-info/top_level.txt
+reading manifest file 'reactivegraph_sdk.egg-info/SOURCES.txt'
+writing manifest file 'reactivegraph_sdk.egg-info/SOURCES.txt'
+installing to build/bdist.macosx-10.15-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.macosx-10.15-x86_64/wheel
+creating build/bdist.macosx-10.15-x86_64/wheel/reactivegraph_sdk
+copying build/lib/reactivegraph_sdk/client.py -> build/bdist.macosx-10.15-x86_64/wheel/./reactivegraph_sdk
+copying build/lib/reactivegraph_sdk/__init__.py -> build/bdist.macosx-10.15-x86_64/wheel/./reactivegraph_sdk
+running install_egg_info
+Copying reactivegraph_sdk.egg-info to build/bdist.macosx-10.15-x86_64/wheel/./reactivegraph_sdk-0.1.0-py3.12.egg-info
+running install_scripts
+creating build/bdist.macosx-10.15-x86_64/wheel/reactivegraph_sdk-0.1.0.dist-info/WHEEL
+creating '/tmp/proof-dist/reactivegraph_sdk/.tmp-zpw07q3h/reactivegraph_sdk-0.1.0-py3-none-any.whl' and adding 'build/bdist.macosx-10.15-x86_64/wheel' to it
+adding 'reactivegraph_sdk/__init__.py'
+adding 'reactivegraph_sdk/client.py'
+adding 'reactivegraph_sdk-0.1.0.dist-info/METADATA'
+adding 'reactivegraph_sdk-0.1.0.dist-info/WHEEL'
+adding 'reactivegraph_sdk-0.1.0.dist-info/top_level.txt'
+adding 'reactivegraph_sdk-0.1.0.dist-info/RECORD'
+removing build/bdist.macosx-10.15-x86_64/wheel
+Successfully built /tmp/proof-dist/reactivegraph_sdk/reactivegraph_sdk-0.1.0.tar.gz
+Successfully built /tmp/proof-dist/reactivegraph_sdk/reactivegraph_sdk-0.1.0-py3-none-any.whl
