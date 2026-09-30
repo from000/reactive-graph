@@ -34,7 +34,7 @@
   "dependencies": {
     "@reactivegraph/devtools-protocol": "workspace:*",
     "@reactivegraph/protocol": "workspace:*",
-    "@vue/reactivity": "^3.4.0",
+    "@vue/reactivity": "^3.5.43",
     "ioredis": "^6.0.0",
     "pg": "^8.23.0"
   },
