@@ -23,7 +23,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Build workspace (harness.test.ts imports @reactivegraph/driver)
         run: pnpm -r build
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
       - name: Install upstream langgraph (pinned)
         run: uv sync --directory benchmarks/differential
       - name: Run differential benchmark
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
       - name: Run realworld offline suite (engine assert + report)
         # uv run 会切 cwd 到 python/reactivechain——用绝对路径定位脚本
         # （脚本内部用 __file__ 锚定 .results，不受 cwd 影响）。
@@ -73,7 +73,7 @@ jobs:
         # @reactivegraph/devtools-protocol, whose dist/ folders are git-ignored.
         # Building only packages/driver fails with TS2307; build the workspace.
         run: pnpm -r build
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
       - name: Install test dependencies
         # uv-run does not install the test extra; without it `pytest` is absent.
         run: uv sync --directory python/reactivechain --extra test
