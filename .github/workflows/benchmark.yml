@@ -29,7 +29,7 @@ jobs:
       - name: Run differential benchmark
         run: uv run --directory benchmarks/differential python run_differential.py --refresh
       - name: Upload differential benchmark matrix
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: differential-benchmark-matrix
           path: benchmarks/differential/.results/
@@ -48,7 +48,7 @@ jobs:
         # （脚本内部用 __file__ 锚定 .results，不受 cwd 影响）。
         run: uv run --directory python/reactivechain python $GITHUB_WORKSPACE/benchmarks/realworld/realworld_side.py
       - name: Upload realworld report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: realworld-report
           path: benchmarks/realworld/.results/realworld.json
