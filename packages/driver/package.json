@@ -38,7 +38,7 @@
     "@reactivegraph/protocol": "workspace:*",
     "@vue/reactivity": "^3.4.0",
     "ioredis": "^6.0.0",
-    "pg": "^8.23.0"
+    "pg": "^8.23.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
