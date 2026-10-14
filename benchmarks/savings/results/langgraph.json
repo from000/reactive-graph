@@ -1,0 +1,52 @@
+{
+  "engine": "langgraph",
+  "model": "agnes-2.5-flash",
+  "runs": 2,
+  "llm_calls_total": 4,
+  "llm_calls_by_task": {
+    "llm_extract": 2,
+    "llm_generate": 2
+  },
+  "tokens_in_total": 1275,
+  "tokens_out_total": 890,
+  "calls": [
+    {
+      "task": "llm_extract",
+      "s": 159.487,
+      "tokens_in": 334,
+      "tokens_out": 600
+    },
+    {
+      "task": "llm_generate",
+      "s": 2.298,
+      "tokens_in": 296,
+      "tokens_out": 87
+    },
+    {
+      "task": "llm_extract",
+      "s": 2.082,
+      "tokens_in": 334,
+      "tokens_out": 111
+    },
+    {
+      "task": "llm_generate",
+      "s": 5.39,
+      "tokens_in": 311,
+      "tokens_out": 92
+    }
+  ],
+  "results": [
+    {
+      "run": 0,
+      "tone": "formal",
+      "metrics": "",
+      "answer": "Please provide the text you'd like me to rewrite, along with any specific words or phrases you'd like me to include."
+    },
+    {
+      "run": 1,
+      "tone": "casual",
+      "metrics": "$4.2M, 2.1%, 38%",
+      "answer": "Looks like they're bringing in $4.2M with just a 2.1% conversion rate, which is way below the 38% everyone's used to."
+    }
+  ]
+}

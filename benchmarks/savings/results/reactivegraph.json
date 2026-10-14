@@ -1,0 +1,86 @@
+{
+  "model": "agnes-2.5-flash",
+  "runs": 2,
+  "llm_calls_total": 3,
+  "llm_calls_by_task": {
+    "llm_extract": 1,
+    "llm_generate": 2
+  },
+  "calls": [
+    {
+      "task": "llm_extract",
+      "s": 7.415,
+      "tokens_in": 334,
+      "tokens_out": 600
+    },
+    {
+      "task": "llm_generate",
+      "s": 5.026,
+      "tokens_in": 296,
+      "tokens_out": 64
+    },
+    {
+      "task": "llm_generate",
+      "s": 1.217,
+      "tokens_in": 296,
+      "tokens_out": 71
+    }
+  ],
+  "results": [
+    {
+      "run": 0,
+      "tone": "formal",
+      "metrics": "",
+      "answer": "It appears your request is incomplete. Please provide the text you'd like me to rewrite and specify what elements or structure you'd like me to use."
+    },
+    {
+      "run": 1,
+      "tone": "casual",
+      "metrics": "",
+      "answer": "Hey! I think you might've sent that message without the text you want me to rewrite. Could you share what you'd like me to work with?"
+    }
+  ],
+  "explain": {
+    "events": [
+      {
+        "event": "task:llm_extract:start",
+        "task": "llm_extract"
+      },
+      {
+        "event": "cache_hit",
+        "task": "llm_extract"
+      },
+      {
+        "event": "task:llm_extract",
+        "task": "llm_extract"
+      },
+      {
+        "event": "task:llm_generate:start",
+        "task": "llm_generate"
+      },
+      {
+        "event": "task:llm_generate",
+        "task": "llm_generate"
+      }
+    ],
+    "executed": 2,
+    "skipped": 1,
+    "cache_hits": 1,
+    "errors": 0
+  },
+  "cost_saved": {
+    "executions": 2,
+    "skipped": 1,
+    "llm_calls_saved": 1,
+    "tools_saved": 0,
+    "tokens_in_saved": 180,
+    "tokens_out_saved": 40,
+    "estimated_usd_saved": 0.00012,
+    "cost_known": true
+  },
+  "why_skipped_extract": {
+    "task": "llm_extract",
+    "kind": "pure",
+    "reason": "fingerprint_unchanged"
+  }
+}

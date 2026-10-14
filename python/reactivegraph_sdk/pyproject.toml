@@ -1,0 +1,64 @@
+[project]
+name = "reactivegraph-sdk"
+version = "0.1.0"
+description = "ReactiveGraph Python SDK (remote client over RGP/1)"
+readme = "README.md"
+authors = [
+    { name = "ReactiveGraph contributors" },
+]
+keywords = ["reactive", "reactive-graph", "sdk", "client", "protocol"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+dependencies = [
+    "reactivegraph>=0.1.0",
+    "typing-extensions>=4.7; python_version < '3.11'",
+]
+
+[tool.uv.sources]
+reactivegraph = { workspace = true }
+
+[project.urls]
+Homepage = "https://github.com/from000/reactive-graph"
+Repository = "https://github.com/from000/reactive-graph"
+Issues = "https://github.com/from000/reactive-graph/issues"
+Documentation = "https://github.com/from000/reactive-graph/tree/main/docs"
+
+[project.optional-dependencies]
+test = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+[tool.ruff]
+line-length = 140
+target-version = "py310"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.interrogate]
+# Docstring coverage gate. Nested functions, overload stubs, __init__ and
+# magic methods are excluded: they are implementation details, not the API
+# surface users read.
+ignore-nested-functions = true
+ignore-overloaded-functions = true
+ignore-init-method = true
+ignore-magic = true
+fail-under = 80
+
+# PEP 561: ship the ``py.typed`` marker so downstream type checkers use the
+# inline annotations instead of reporting missing library stubs.
+[tool.setuptools.package-data]
+reactivegraph_sdk = ["py.typed"]

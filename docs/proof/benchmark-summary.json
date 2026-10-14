@@ -1,0 +1,51 @@
+{
+  "commit": "f439e3c74cc9c36bcf7757d30f793ba5f7632939",
+  "date": "2026-09-23",
+  "protocol": {
+    "sameMachine": true,
+    "sequential": true,
+    "medianOfRuns": 3,
+    "warmup": true,
+    "outputEqualityAsserted": true,
+    "noGainWorkloadIncluded": true,
+    "upstream": "langgraph==1.2.11"
+  },
+  "workloads": [
+    {
+      "workload": "chat",
+      "reactiveMedianMs": 0.218442,
+      "langgraphMedianMs": 1.147,
+      "ratio": 5.3,
+      "reactiveExecutedPerRun": 2,
+      "langgraphExecutedPerRun": 2,
+      "outputIdentical": true
+    },
+    {
+      "workload": "wide",
+      "reactiveMedianMs": 2.960461,
+      "langgraphMedianMs": 3251.446,
+      "ratio": 1098.3,
+      "reactiveExecutedPerRun": 1,
+      "langgraphExecutedPerRun": 1000,
+      "outputIdentical": true
+    },
+    {
+      "workload": "selective",
+      "reactiveMedianMs": 1.847338,
+      "langgraphMedianMs": 3180.731,
+      "ratio": 1721.8,
+      "reactiveExecutedPerRun": 10,
+      "langgraphExecutedPerRun": 1000,
+      "outputIdentical": true
+    },
+    {
+      "workload": "nogain",
+      "reactiveMedianMs": 120.178379,
+      "langgraphMedianMs": 2750.486,
+      "ratio": 22.9,
+      "reactiveExecutedPerRun": 1000,
+      "langgraphExecutedPerRun": 1000,
+      "outputIdentical": true
+    }
+  ]
+}

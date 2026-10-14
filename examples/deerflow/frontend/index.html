@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReactiveGraph · DeerFlow 风格工作台</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">◈</span>
+    <span class="title">ReactiveGraph 工作台</span>
+    <span class="sub">原生引擎 · 真实 Driver · RGP/1</span>
+  </div>
+  <nav class="tabs">
+    <button id="tab-chat" class="tab active">对话</button>
+    <button id="tab-lab" class="tab">能力实验室</button>
+  </nav>
+</header>
+
+<main>
+  <section id="pane-chat" class="pane active">
+    <div id="chat-log" class="chat-log"></div>
+    <form id="chat-form" class="chat-form">
+      <label class="real-label" title="使用 AGNES 网关真实模型(需 AGNES_API_KEY 等环境变量)">
+        <input type="checkbox" id="chat-real"> 真实模型
+      </label>
+      <input id="chat-input" type="text" placeholder="输入研究问题,如: what is reactive execution?"
+             autocomplete="off" autofocus>
+      <button type="submit">运行 ▸</button>
+    </form>
+  </section>
+
+  <section id="pane-lab" class="pane">
+    <p class="hint">13 项引擎能力,全部连真实 Driver(RGP/1)逐一真实执行。</p>
+    <div id="lab-grid" class="lab-grid"></div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

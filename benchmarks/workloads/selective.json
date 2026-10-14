@@ -1,0 +1,8 @@
+{
+  "name": "selective",
+  "description": "Wide-state workload: 100-1000 nodes each reading a disjoint path; one field changes per step.",
+  "shape": "disjoint",
+  "nodes": [100, 200, 500, 1000],
+  "change": "single-field",
+  "runs": 5
+}

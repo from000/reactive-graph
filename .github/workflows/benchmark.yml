@@ -1,0 +1,91 @@
+name: differential-benchmark
+
+# Manual differential benchmark: ReactiveGraph (native Driver) vs the real
+# upstream langgraph (pinned 1.2.11), same graphs / same per-run inputs,
+# output-equality asserted before timings are printed. Results are advisory
+# (this takes minutes and is machine-sensitive), not a merge gate.
+on:
+  workflow_dispatch:
+
+jobs:
+  differential:
+    name: ReactiveGraph vs langgraph 1.2.11
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build workspace (harness.test.ts imports @reactivegraph/driver)
+        run: pnpm -r build
+      - uses: astral-sh/setup-uv@v5
+      - name: Install upstream langgraph (pinned)
+        run: uv sync --directory benchmarks/differential
+      - name: Run differential benchmark
+        run: uv run --directory benchmarks/differential python run_differential.py --refresh
+      - name: Upload differential benchmark matrix
+        uses: actions/upload-artifact@v4
+        with:
+          name: differential-benchmark-matrix
+          path: benchmarks/differential/.results/
+          # upload-artifact hides dot-paths by default; .results is the payload.
+          include-hidden-files: true
+          if-no-files-found: error
+
+  realworld:
+    name: RealWorld 离线验证套件（真实 LLM 需本机/有网环境）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Run realworld offline suite (engine assert + report)
+        # uv run 会切 cwd 到 python/reactivechain——用绝对路径定位脚本
+        # （脚本内部用 __file__ 锚定 .results，不受 cwd 影响）。
+        run: uv run --directory python/reactivechain python $GITHUB_WORKSPACE/benchmarks/realworld/realworld_side.py
+      - name: Upload realworld report
+        uses: actions/upload-artifact@v4
+        with:
+          name: realworld-report
+          path: benchmarks/realworld/.results/realworld.json
+          include-hidden-files: true
+          if-no-files-found: error
+
+  e2e:
+    name: 全功能 e2e 套件（43 功能点 + DeerFlow 移植 26）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build workspace (DriverHost 子进程依赖 protocol + driver dist)
+        # packages/driver imports @reactivegraph/protocol and
+        # @reactivegraph/devtools-protocol, whose dist/ folders are git-ignored.
+        # Building only packages/driver fails with TS2307; build the workspace.
+        run: pnpm -r build
+      - uses: astral-sh/setup-uv@v5
+      - name: Install test dependencies
+        # uv-run does not install the test extra; without it `pytest` is absent.
+        run: uv sync --directory python/reactivechain --extra test
+      - name: Run e2e suite (43 feature points)
+        # pytest 需 conftest 进 sys.path；uv run 切 cwd → 用绝对路径。
+        run: uv run --directory python/reactivechain --extra test pytest $GITHUB_WORKSPACE/benchmarks/e2e/ -q
+      - name: Run DeerFlow port suite (6 links + 7 differentiators, 26)
+        run: uv run --directory python/reactivechain --extra test pytest $GITHUB_WORKSPACE/benchmarks/deerflow/ -q
+      - name: Run examples/deerflow suite (frontend 14 + browser e2e 5 + core 6)
+        run: |
+          uv sync --directory examples/deerflow --extra test
+          uv run --directory examples/deerflow python -m playwright install chromium
+          uv run --directory examples/deerflow --extra test pytest $GITHUB_WORKSPACE/examples/deerflow/tests -q
+      - name: Ruff (benchmarks)
+        run: uvx ruff check benchmarks/e2e benchmarks/deerflow benchmarks/differential

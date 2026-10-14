@@ -1,0 +1,15 @@
+[project]
+name = "reactivegraph-differential-benchmark"
+version = "0.0.1"
+description = "Reproducible differential benchmark: ReactiveGraph (native Driver) vs upstream langgraph"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph==1.2.11",
+    # 仅缺失的运行时第三方依赖（msgpack）：reactivegraph 本体经
+    # reactchain_side.py 的 sys.path 指向源码（P0 后链运行时依赖它，
+    # 见该脚本 sys.path 注释）
+    "msgpack",
+]
+
+[tool.uv]
+package = false

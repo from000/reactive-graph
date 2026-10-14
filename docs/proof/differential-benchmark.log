@@ -1,0 +1,33 @@
+
+ RUN  v2.1.9 <repo-root>
+
+stdout | benchmarks/differential/harness.test.ts > differential benchmark: reactive side > runs chat/wide/selective/nogain and writes .results/reactive.json
+┌─────────┬─────────────┬───────────┬────────────────┐
+│ (index) │ workload    │ median_ms │ executedPerRun │
+├─────────┼─────────────┼───────────┼────────────────┤
+│ 0       │ 'chat'      │ '0.218'   │ 2              │
+│ 1       │ 'wide'      │ '2.960'   │ 1              │
+│ 2       │ 'selective' │ '1.847'   │ 10             │
+│ 3       │ 'nogain'    │ '120.178' │ 1000           │
+└─────────┴─────────────┴───────────┴────────────────┘
+
+ ✓ |benchmarks| benchmarks/differential/harness.test.ts (1 test) 699ms
+   ✓ differential benchmark: reactive side > runs chat/wide/selective/nogain and writes .results/reactive.json 698ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  15:54:00
+   Duration  1.89s (transform 286ms, setup 0ms, collect 559ms, tests 699ms, environment 0ms, prepare 167ms)
+
+[reactive] pnpm exec vitest run benchmarks/differential/harness.test.ts
+[langgraph] uv run --directory <repo-root>/benchmarks/differential python langgraph_side.py
+
+Differential benchmark (median of runs, same machine)
+workload   reactive ms  langgraph ms     ratio
+chat             0.218         1.147      5.3x
+wide             2.960      3251.446   1098.3x
+selective        1.847      3180.731   1721.8x
+nogain         120.178      2750.486     22.9x
+
+reactive executedPerRun: chat=2, wide=1, selective=10, nogain=1000
+Outputs identical for every workload ✓
