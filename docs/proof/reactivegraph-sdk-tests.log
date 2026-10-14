@@ -1,0 +1,8 @@
+............                                                             [100%]
+=============================== warnings summary ===============================
+tests/test_client.py:19
+  <repo-root>/python/reactivegraph_sdk/tests/test_client.py:19: PytestCollectionWarning: cannot collect test class 'TestServer' because it has a __init__ constructor (from: tests/test_client.py)
+    class TestServer:
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+12 passed, 1 warning in 0.05s

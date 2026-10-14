@@ -1,0 +1,201 @@
+== create_agent thread-state differential: upstream langchain/langgraph vs reactivegraph ==
+date: 2026-09-24T18:32:13Z
+upstream venv: /tmp/reactive-realworld/deer-flow/backend/.venv (langchain 1.3.14, langgraph 1.2.9)
+core worktree: c076c66 + working tree
+
+--- scenario: two invokes on one thread_id, InMemorySaver (upstream) vs CheckpointStore (reactive) ---
+[upstream]
+{
+  "first": [
+    "one",
+    "reply"
+  ],
+  "second": [
+    "one",
+    "reply",
+    "two"
+  ],
+  "snapshot_values": [
+    "one",
+    "reply",
+    "two"
+  ],
+  "snapshot_next": [],
+  "snapshot_metadata_source": "loop",
+  "snapshot_metadata_agent_name": "probe",
+  "snapshot_has_checkpoint_id": true,
+  "snapshot_created_at_is_str": true,
+  "history_len": 6,
+  "history_newest": [
+    "one",
+    "reply",
+    "two"
+  ],
+  "history_oldest": [],
+  "history_sources": [
+    "loop",
+    "loop",
+    "input",
+    "loop",
+    "loop",
+    "input"
+  ],
+  "update_has_checkpoint_id": true,
+  "after_update": [
+    "one",
+    "reply",
+    "two",
+    "manual"
+  ],
+  "update_metadata_source": "update",
+  "unknown_values": {},
+  "unknown_metadata": null,
+  "missing_thread_id": "ValueError: Checkpointer requires one or more of the following 'configurable' keys: thread_id, checkpoint_ns, checkpoint_id",
+  "no_checkpointer": "ValueError: No checkpointer set"
+}
+[reactive]
+{
+  "first": [
+    "one",
+    "reply"
+  ],
+  "second": [
+    "one",
+    "reply",
+    "two",
+    "reply"
+  ],
+  "snapshot_values": [
+    "one",
+    "reply",
+    "two",
+    "reply"
+  ],
+  "snapshot_next": [],
+  "snapshot_metadata_source": "loop",
+  "snapshot_metadata_agent_name": "probe",
+  "snapshot_has_checkpoint_id": true,
+  "snapshot_created_at_is_str": true,
+  "history_len": 2,
+  "history_newest": [
+    "one",
+    "reply",
+    "two",
+    "reply"
+  ],
+  "history_oldest": [
+    "one",
+    "reply"
+  ],
+  "history_sources": [
+    "loop",
+    "loop"
+  ],
+  "update_has_checkpoint_id": true,
+  "after_update": [
+    "one",
+    "reply",
+    "two",
+    "reply",
+    "manual"
+  ],
+  "update_metadata_source": "update",
+  "unknown_values": {},
+  "unknown_metadata": null,
+  "missing_thread_id": "ValueError: Checkpointer requires one or more of the following 'configurable' keys: thread_id, checkpoint_ns, checkpoint_id",
+  "no_checkpointer": "ValueError: No checkpointer set"
+}
+
+--- scenario: message-id replacement semantics (same id replaces, new id appends) ---
+[upstream]
+{
+  "first": [
+    "one",
+    "reply-1"
+  ],
+  "second": [
+    "one",
+    "reply-2",
+    "two"
+  ]
+}
+[reactive]
+{
+  "first": [
+    "one",
+    "reply-1"
+  ],
+  "second": [
+    "one",
+    "reply-2",
+    "two"
+  ]
+}
+
+--- scenario: fork from an older checkpoint (DeerFlow rollback/resume path) ---
+[upstream]
+{
+  "head_before": [
+    "one",
+    "r1",
+    "two",
+    "r2"
+  ],
+  "fork_from": [
+    "one"
+  ],
+  "fork_from_id": "1f1b8464-5e86-6746-8000-473565428fd9",
+  "fork_result_id": "1f1b8464-5e9d-6464-8001-22576e2fb3cd",
+  "head_after_fork": [
+    "one",
+    "rewritten"
+  ],
+  "head_parent": "1f1b8464-5e86-6746-8000-473565428fd9",
+  "parent_is_fork_from": true,
+  "after_next_turn": [
+    "one",
+    "rewritten",
+    "three",
+    "r3"
+  ]
+}
+[reactive]
+{
+  "head_before": [
+    "one",
+    "r1",
+    "two",
+    "r2"
+  ],
+  "fork_from": [
+    "one",
+    "r1"
+  ],
+  "fork_from_id": "1f1b8464-687f-6482-bffe-3e8822340d60",
+  "fork_result_id": "1f1b8464-6882-6bb4-bffe-9ced3c6aab02",
+  "head_after_fork": [
+    "one",
+    "r1",
+    "rewritten"
+  ],
+  "head_parent": "1f1b8464-687f-6482-bffe-3e8822340d60",
+  "parent_is_fork_from": true,
+  "after_next_turn": [
+    "one",
+    "r1",
+    "rewritten",
+    "three",
+    "r3"
+  ]
+}
+
+--- scenario: reactivegraph driving a REAL langgraph InMemorySaver (blob version consistency) ---
+head: ['one', 'r1', 'two', 'r2']
+history len: 2
+    ['one', 'r1', 'two', 'r2'] loop
+    ['one', 'r1'] loop
+after fork: ['one', 'r1', 'rewritten']
+parent is fork-from: True
+next turn: ['one', 'r1', 'rewritten', 'three', 'r3']
+raw channel_values keys: ['messages']
+raw messages: ['one', 'r1', 'rewritten', 'three', 'r3']

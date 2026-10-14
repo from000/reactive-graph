@@ -1,0 +1,62 @@
+<repo-root>/benchmarks/differential/middleware_differential.py:109: DeprecationWarning: Direct attribute assignment to ModelRequest.messages is deprecated. Use request.override(messages=...) instead to create a new request with the modified attribute.
+  o.messages = ["new"]
+<repo-root>/benchmarks/differential/middleware_differential.py:110: DeprecationWarning: Direct attribute assignment to ModelRequest.messages is deprecated. Use request.override(messages=...) instead to create a new request with the modified attribute.
+  t.messages = ["new"]
+python=3.12.11
+
+== model_request_probes ==
+ok   ModelRequest.defaults  ({'model': 'm', 'messages': [], 'system_message': None, 'tool_choice': None, 'tools': [], 'response_format': None, 'state': {'messages': []}, 'runtime': None, 'model_settings': {}})
+ok   ModelRequest.field_order  (['model', 'messages', 'system_message', 'tool_choice', 'tools', 'response_format', 'state', 'runtime', 'model_settings'])
+ok   ModelRequest.is_dataclass  (True)
+ok   ModelRequest.system_prompt  (('SystemMessage', 'be concise', 'be concise'))
+ok   ModelRequest.system_message  (('SystemMessage', 'x', 'x'))
+ok   ModelRequest.both_prompts_error  ('ValueError')
+ok   ModelRequest.assignment  ((['new'], ['new']))
+ok   ModelRequest.override.system_prompt  (('SystemMessage', 'p'))
+
+== state_probes ==
+ok   AgentState.keys  ((['jump_to', 'messages', 'structured_response'], []))
+ok   InputAgentState.keys  ((['messages'], []))
+ok   OutputAgentState.keys  ((['messages', 'structured_response'], []))
+
+== middleware_defaults_probes ==
+ok   AgentMiddleware.name  ('AgentMiddleware')
+ok   AgentMiddleware.transformers  (())
+ok   AgentMiddleware.has_tools_class  (False)
+ok   AgentMiddleware.has_tools_instance  (False)
+ok   AgentMiddleware.state_schema_name  ('_DefaultAgentState')
+ok   AgentMiddleware.before_agent  (None)
+ok   AgentMiddleware.before_model  (None)
+ok   AgentMiddleware.after_model  (None)
+ok   AgentMiddleware.after_agent  (None)
+
+== decorator_probes ==
+ok   @before_model  (('hook', 'dict', {'n': 1}, ()))
+ok   @after_model  (('hook', 'dict', {'n': 1}, ()))
+ok   @before_agent  (('hook', 'dict', {'n': 1}, ()))
+ok   @after_agent  (('hook', 'dict', {'n': 1}, ()))
+ok   @before_model(name=)  (('Custom', 'Custom'))
+ok   @before_model(can_jump_to=)  (['end'])
+ok   @before_model(async)  ((True, True))
+ok   @hook_config(can_jump_to=)  (['tools', 'end'])
+
+== wrap_defaults_probes ==
+ok   wrap_model_call.sync_default_message  ('Synchronous implementation of wrap_model_call is not available. You are likely encountering this error because you defined only the async version (awrap_model_call) and invoked your agent in a synchronous context (e.g., using `stream()` or `invoke()`). To resolve this, either: (1) subclass AgentMiddleware and implement the synchronous wrap_model_call method, (2) use the @wrap_model_call decorator on a standalone sync function, or (3) invoke your agent asynchronously using `astream()` or `ainvoke()`.')
+ok   wrap_tool_call.sync_default_message  ('Synchronous implementation of wrap_tool_call is not available. You are likely encountering this error because you defined only the async version (awrap_tool_call) and invoked your agent in a synchronous context (e.g., using `stream()` or `invoke()`). To resolve this, either: (1) subclass AgentMiddleware and implement the synchronous wrap_tool_call method, (2) use the @wrap_tool_call decorator on a standalone sync function, or (3) invoke your agent asynchronously using `astream()` or `ainvoke()`.')
+
+== tool_call_request_probes ==
+ok   ToolCallRequest.field_order  (['tool_call', 'tool', 'state', 'runtime'])
+ok   ToolCallRequest.override  ('y')
+ok   ToolCallRequest.override_is_new  (True)
+
+== tool_runtime_probes ==
+ok   ToolRuntime.field_order  (['state', 'context', 'config', 'stream_writer', 'tool_call_id', 'store', 'tools', 'execution_info', 'server_info'])
+ok   ToolRuntime.emit_output_delta_without_writer  (None)
+ok   ToolRuntime.default_tools  ([])
+ok   ToolRuntime.default_execution_info  (None)
+ok   ToolRuntime.default_server_info  (None)
+ok   ToolRuntime.emit_output_delta_bound  (['bound'])
+ok   ToolRuntime.emit_output_delta_after_unbind  ([])
+
+checks=40 failures=0
+{"checks": 40, "failures": 0}

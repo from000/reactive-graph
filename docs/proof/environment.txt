@@ -1,0 +1,10 @@
+commit=f439e3c74cc9c36bcf7757d30f793ba5f7632939
+branch=beyond-langgraph-p4
+commitTime=2026-09-23T13:19:48+08:00
+node=v24.15.0
+python=Python 3.12.11
+pnpm=11.24.0
+uv=uv 0.8.13 (ede75fe62 2025-08-21)
+os=Darwin 25.6.0 x86_64
+cpu=Intel(R) Core(TM) i5-1038NG7 CPU @ 2.00GHz
+memory=17179869184
